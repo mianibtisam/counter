@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      padding-top: 50px;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    #counter {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #333;
+      animation: popin 0.3s ease;
+    }
+
+    @keyframes popin {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    #counter.even {
+      color: blue;
+    }
+
+    #counter.odd {
+      color: red;
+    }
+
+    .button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    #history {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    #history div {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="counter">0</div>
+    <button class="button" id="decrement">Decrement</button>
+    <button class="button" id="increment">Increment</button>
+    <button class="button" id="reset">Reset</button>
+    <div id="history">History:</div>
+  </div>
+
+  <script>
+    let count = 0;
+    const counterElement = document.getElementById('counter');
+    const historyElement = document.getElementById('history');
+
+    function updateCounter() {
+      counterElement.textContent = count;
+      counterElement.className = count % 2 === 0 ? 'even' : 'odd';
+    }
+
+    function addToHistory(value) {
+      const historyItem = document.createElement('div');
+      historyItem.textContent = value;
+      historyElement.appendChild(historyItem);
+    }
+
+    document.getElementById('increment').addEventListener('click', function() {
+      count++;
+      updateCounter();
+      addToHistory(count);
+    });
+
+    document.getElementById('decrement').addEventListener('click', function() {
+      if (count > 0) {
+        count--;
+        updateCounter();
+        addToHistory(count);
+      }
+    });
+
+    document.getElementById('reset').addEventListener('click', function() {
+      count = 0;
+      updateCounter();
+      historyElement.innerHTML = 'History:';
+    });
+
+    updateCounter();
+  </script>
+</body>
+</html>
